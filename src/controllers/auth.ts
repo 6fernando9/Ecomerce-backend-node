@@ -1,5 +1,5 @@
 //controlador para manejar las solicitudes y respuesta
-import { NextFunction, Request,Response } from "express";
+import { NextFunction, request, Request,Response } from "express";
 import { prismaClient } from "..";
 import { hashSync, compareSync } from "bcrypt";
 import * as jwt from "jsonwebtoken";
@@ -8,6 +8,8 @@ import { BadRequestException } from "../exceptions/bad-request";
 import { ErrorCode } from "../exceptions/root";
 import { signupSchema } from "../schema/users";
 import { NotFoundException } from "../exceptions/not-found";
+import { User } from "@prisma/client";
+import { UnauthorizedException } from "../exceptions/unauthorized";
 
 export const login = async (req: Request, res: Response) => {
   const { email, password } = req.body;
@@ -60,6 +62,13 @@ export const signup = async (req: Request, res: Response, next: NextFunction) =>
 }
 
 //obtener usuario autenticado
-export const getAuthenticatedUser = async (req: Request,res: Response) => {
+export const getJsonAuthenticatedUser = async (req: Request,res: Response) => {
      res.json(req.user)
+}
+
+export const getAuthenticatedUser = (req: Request, res: Response): User => {
+  if(!req.user){
+    throw new UnauthorizedException("Error Usuario no Authenticado",ErrorCode.UNAUTHORIZED);
+  }
+  return req.user as User;
 }

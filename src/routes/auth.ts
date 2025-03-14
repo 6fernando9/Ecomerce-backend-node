@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { login, getAuthenticatedUser, signup } from "../controllers/auth";
+import { getJsonAuthenticatedUser, login, signup } from "../controllers/auth";
 import { errorHandler } from "../error-handler";
 import authMiddleware from "../middlewares/auth";
 
@@ -9,6 +9,6 @@ const authRoutes: Router = Router();
 //error handler por si ocurre algun error mandara una exception 500 de internal server error
 authRoutes.post('/login',errorHandler(login));
 authRoutes.post("/signup", errorHandler(signup));
-authRoutes.get("/me",[authMiddleware],errorHandler(getAuthenticatedUser))
+authRoutes.get("/me", [authMiddleware], errorHandler(getJsonAuthenticatedUser));
 
 export default authRoutes;

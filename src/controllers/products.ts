@@ -3,7 +3,7 @@ import { prismaClient } from "..";
 import { NotFoundException } from "../exceptions/not-found";
 import { ErrorCode } from "../exceptions/root";
 
-
+// crud de producto
 
 export const createProduct = async (req: Request, res: Response) => {
 

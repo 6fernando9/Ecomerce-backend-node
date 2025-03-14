@@ -18,8 +18,10 @@ export const errorHandler = (method: AsyncHandler) =>{
             }else{
                 if(error instanceof ZodError){
                     exception = new BadRequestException("UnProcessableEntity", ErrorCode.UNPROCESABLE_ENTITY);
+                }else{
+                    exception = new InternalException('Something went wrong!', error,ErrorCode.INTERNAL_EXCEPTION);
+
                 }
-                exception = new InternalException('Something went wrong!', error,ErrorCode.INTERNAL_EXCEPTION);
             }
             next(exception);
         }
