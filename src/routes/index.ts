@@ -2,6 +2,7 @@ import { Router } from "express";
 import authRoutes from "./auth";
 import productRoutes from "./products";
 import usersRoutes from "./user";
+import cartRoutes from "./cart";
 //otra capa para administrar los endpoind
 const rootRouter: Router = Router();
 
@@ -10,4 +11,5 @@ const rootRouter: Router = Router();
 rootRouter.use('/auth',authRoutes);
 rootRouter.use('/products',productRoutes)
 rootRouter.use("/users", usersRoutes);
+rootRouter.use("/carts",cartRoutes);
 export default rootRouter;
