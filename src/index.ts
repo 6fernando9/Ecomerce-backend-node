@@ -22,8 +22,25 @@ app.use('/api', rootRouter);
 //Cliente Prisma
 //donde tambien activamos los logs
 export const prismaClient = new PrismaClient({
-    log:['query']
-})
+  log: ["query"],
+}).$extends({
+  result: {
+    address: {
+      formattedAddress: {
+        needs: {
+          lineOne: true,
+          lineTwo: true,
+          city: true,
+          country: true,
+          pincode: true,
+        },
+        compute: (addr) => {
+          return `${addr.lineOne},${addr.lineTwo},${addr.city},${addr.country},${addr.pincode}`;
+        },
+      },
+    },
+  },
+});
 //extends se usa para agregar validaciones a metodos 
 // }).$extends({
 //     query:{ //modificamos una consulta prisma

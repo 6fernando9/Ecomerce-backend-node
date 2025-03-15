@@ -15,4 +15,10 @@ productRoutes.delete('/:id',[authMiddleware,adminMiddleware],errorHandler(delete
 productRoutes.get('/',[authMiddleware,adminMiddleware],errorHandler(listProducts));
 productRoutes.get('/:id',[authMiddleware,adminMiddleware],errorHandler(getProductById));
 
+
+// para busqueda de productos
+
+//search?q=""
+
+
 export default productRoutes;
